@@ -1,0 +1,171 @@
+.envelope-body::before,
+.envelope-body::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 52%;
+  height: 100%;
+  background: rgba(214, 193, 154, 0.28);
+}
+
+.envelope-body::before {
+  left: 0;
+  clip-path: polygon(0 0, 100% 52%, 0 100%);
+}
+
+.envelope-body::after {
+  right: 0;
+  clip-path: polygon(100% 0, 0 52%, 100% 100%);
+}
+
+.envelope-flap {
+  clip-path: polygon(0 0, 50% 70%, 100% 0);
+  transform-origin: top;
+}
+
+.envelope {
+  perspective: 900px;
+}
+
+.envelope-letter {
+  animation: floatLetter 2.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.envelope-opened {
+  animation: envelopeLift 0.95s ease forwards;
+}
+
+.envelope-opened .envelope-flap {
+  transform: rotateX(165deg);
+  z-index: 1;
+}
+
+.envelope-opened .envelope-letter {
+  animation: none;
+  transform: translateY(-78px) scale(1.04);
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cover-leaving {
+  animation: coverLeaving 0.95s ease forwards;
+}
+
+.card-enter {
+  animation: cardEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.invitation-card {
+  min-height: auto;
+}
+
+.name-text {
+  font-family: var(--font-great-vibes), cursive;
+  word-spacing: 0.03em;
+  letter-spacing: -0.01em;
+}
+
+.font-playfair {
+  font-family: var(--font-playfair), serif;
+}
+
+.left-panel {
+  background-image:
+    radial-gradient(circle at 50% 85%, rgba(214, 193, 154, 0.12), transparent 34%),
+    radial-gradient(circle at 12% 88%, rgba(95, 116, 100, 0.08), transparent 22%),
+    radial-gradient(circle at 88% 88%, rgba(95, 116, 100, 0.07), transparent 22%);
+}
+
+@keyframes floatLetter {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes envelopeLift {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  45% {
+    transform: translateY(-12px) scale(1.04);
+  }
+
+  100% {
+    transform: translateY(-28px) scale(0.92);
+  }
+}
+
+@keyframes coverLeaving {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(0.98);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+@keyframes cardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (hover: hover) {
+  .group:hover .envelope-flap {
+    transform: rotateX(35deg);
+  }
+}
+
+@media (max-width: 1279px) {
+  .left-panel,
+  .right-panel {
+    min-height: auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .card-enter {
+    animation-duration: 0.35s;
+  }
+
+  .envelope-letter {
+    animation-duration: 3s;
+  }
+
+  .group:hover .envelope-flap {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .envelope-letter,
+  .envelope-opened,
+  .cover-leaving,
+  .card-enter {
+    animation: none !important;
+  }
+
+  .envelope-opened .envelope-letter {
+    transform: translateY(-50px) scale(1.02);
+  }
+}
